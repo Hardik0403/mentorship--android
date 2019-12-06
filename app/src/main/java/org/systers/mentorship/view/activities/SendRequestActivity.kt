@@ -40,10 +40,11 @@ class SendRequestActivity: BaseActivity() {
         tvRequestEndDate.isEnabled = false
         supportActionBar?.title = getString(R.string.send_request)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val otherUserName = intent.getStringExtra(OTHER_USER_NAME_INTENT_EXTRA)
-        val otherUserId = intent.getIntExtra(OTHER_USER_ID_INTENT_EXTRA, 0)
-        val currentUserId = getAuthTokenPayload().identity
+        var otherUserName = intent.getStringExtra(OTHER_USER_NAME_INTENT_EXTRA)
+        var otherUserId = intent.getIntExtra(OTHER_USER_ID_INTENT_EXTRA, 0)
+        var currentUserId = getAuthTokenPayload().identity
         setObservables()
+
         populateView(otherUserName, otherUserId, currentUserId)
 
         //Setting default date , 1 month after a current date
@@ -109,7 +110,7 @@ class SendRequestActivity: BaseActivity() {
 
                 sendRequestViewModel.sendRequest(sendRequestData)
             } else {
-
+                etRequestNotes.setText("")
                 etRequestNotes.error = getString(R.string.notes_empty_error)
             }
         }

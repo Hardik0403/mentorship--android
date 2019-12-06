@@ -13,11 +13,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.EditProfileFragment">
+        tools:context=".view.fragments.EditProfileFragment"
+        android:id="@+id/svScrollView">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/rlRelativeLayout">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgUserAvatar"
@@ -39,16 +41,15 @@
                 android:layout_marginTop="180dp"
                 app:srcCompat="@drawable/ic_reply_caribbean_24dp" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/imgCameraUpload"
-                android:clickable="true"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="200dp"
-                app:srcCompat="@drawable/ic_photo_camera_caribbean_24dp" />
+                android:background="@drawable/ic_photo_camera_caribbean_24dp" />
 
             <TextView
                 android:id="@+id/tvUsername"
