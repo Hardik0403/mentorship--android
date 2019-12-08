@@ -28,7 +28,7 @@ class SendRequestActivity: BaseActivity() {
     private lateinit var myCalendar : Calendar
     companion object {
         const val OTHER_USER_ID_INTENT_EXTRA = "OTHER_USER_ID_INTENT_EXTRA"
-        const val OTHER_USER_NAME_INTENT_EXTRA = "OTHER_USER_NAME_INTENT_EXTRA"
+        const val OTHER_USER_NAME_INTENT_EXTRA  = "OTHER_USER_NAME_INTENT_EXTRA"
     }
 
     private lateinit var sendRequestViewModel: SendRequestViewModel
