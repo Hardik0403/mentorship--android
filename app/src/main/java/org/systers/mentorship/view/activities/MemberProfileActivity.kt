@@ -30,7 +30,7 @@ class MemberProfileActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.member_profile)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val userId =  intent.getIntExtra(Constants.MEMBER_USER_ID, 0)
+        val userId = intent.getIntExtra(Constants.MEMBER_USER_ID, 0)
 
         /**
          * Getting the current user profile here.
