@@ -3,6 +3,7 @@ package org.systers.mentorship.remote.datamanager
 import io.reactivex.Observable
 import org.systers.mentorship.models.Task
 import org.systers.mentorship.remote.ApiManager
+import org.systers.mentorship.remote.requests.Task_add
 import org.systers.mentorship.remote.responses.CustomResponse
 
 /**
@@ -19,6 +20,14 @@ class TaskDataManager {
      */
     fun getAllTasks(relationId: Int): Observable<List<Task>> {
         return apiManager.taskService.getAllTasksFromMentorshipRelation(relationId)
+    }
+
+    fun addNewTask(relationId: Int,description: Task_add): Observable<CustomResponse> {
+        return apiManager.taskService.addTaskToMentorshipRelation(relationId,description)
+    }
+
+    fun updateTask(relationId: Int,task: Task_add,taskId:Int): Observable<CustomResponse> {
+        return apiManager.taskService.updateTaskCompleted(relationId,task,taskId)
     }
 
 }

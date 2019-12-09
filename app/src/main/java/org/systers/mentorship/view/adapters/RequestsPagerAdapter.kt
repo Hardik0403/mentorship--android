@@ -53,8 +53,8 @@ class RequestsPagerAdapter(
     private val allList: List<Relationship> by lazy {
         requestsList.filter {
             val isAcceptedState = RelationState.ACCEPTED.value == it.state
-
-            !isAcceptedState
+            val isDeletedState = RelationState.DELETED.value == it.state
+            !isAcceptedState && !isDeletedState
         }
     }
 

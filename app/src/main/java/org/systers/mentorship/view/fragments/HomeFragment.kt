@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var achievementsAdapter: AchievementsAdapter
+   // private lateinit var achievementsAdapter: AchievementsAdapter
 
     companion object {
         /**
@@ -43,15 +43,15 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        achievementsAdapter = AchievementsAdapter()
-        val linearLayoutManager = LinearLayoutManager(context)
-        val divider = DividerItemDecoration(context, linearLayoutManager.orientation)
-
-        rvAchievements.apply {
-            adapter = achievementsAdapter
-            layoutManager = linearLayoutManager
-            addItemDecoration(divider)
-        }
+//        achievementsAdapter = AchievementsAdapter(completeTasksList)
+//        val linearLayoutManager = LinearLayoutManager(context)
+//        val divider = DividerItemDecoration(context, linearLayoutManager.orientation)
+//
+//        rvAchievements.apply {
+//            adapter = achievementsAdapter
+//            layoutManager = linearLayoutManager
+//            addItemDecoration(divider)
+//        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment() {
                 } else {
                     tvNoAchievements.visibility = View.GONE
                     rvAchievements.visibility = View.VISIBLE
-                    achievementsAdapter.submitList(stats.achievements)
+//                    achievementsAdapter.submitList(stats.achievements)
                 }
             })
 

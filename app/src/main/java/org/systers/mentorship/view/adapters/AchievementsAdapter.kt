@@ -3,10 +3,12 @@ package org.systers.mentorship.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.achievement_list_item.view.*
+import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Task
 
@@ -15,7 +17,11 @@ import org.systers.mentorship.models.Task
  * easy async calculation of diffs using DiffUtil to provide nice animations when the data set
  * changes.
  */
-class AchievementsAdapter : ListAdapter<Task, AchievementsAdapter.ViewHolder>(AchievementsItemCallback()) {
+class AchievementsAdapter (
+        private var completeTasksList: List<Task>
+): ListAdapter<Task, AchievementsAdapter.ViewHolder>(AchievementsItemCallback()) {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementsAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.achievement_list_item, parent, false)
@@ -23,8 +29,14 @@ class AchievementsAdapter : ListAdapter<Task, AchievementsAdapter.ViewHolder>(Ac
     }
 
     override fun onBindViewHolder(holder: AchievementsAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = completeTasksList[position]
+        val itemView = holder.itemView
+
+        itemView.checkBox.isChecked =true
+        itemView.tvDescription.text=item.description
     }
+
+    override fun getItemCount(): Int = completeTasksList.size
 
     /**
      * This class holds a view for each item of the Achievements list

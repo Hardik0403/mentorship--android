@@ -80,8 +80,8 @@ class RelationFragment(private var mentorshipRelation: Relationship) : BaseFragm
                     relationResponse.endsOn, EXTENDED_DATE_FORMAT)
             tvRelationNotes.text = relationResponse.notes
             btnCancelRelation.visibility = View.VISIBLE
-            btnCancelRelation.setOnClickListener {
 
+            btnCancelRelation.setOnClickListener {
                 with(alertDialog) {
                     this?.setTitle(getString(R.string.cancel_relation_title))
                     this?.setMessage(getString(R.string.cancel_relation_text))

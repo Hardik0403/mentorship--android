@@ -10,11 +10,13 @@ package org.systers.mentorship.models
  * CANCELLED - when any of the users of a current relation cancel a relation
  * COMPLETED - when a current relation passes the end date it becomes completed,
  *             this happens automatically, does not require action from any user
+ * DELETED   - when the user deletes a pending request
  */
 enum class RelationState(val value: Int) {
     PENDING(1),
     ACCEPTED(2),
     REJECTED(3),
     CANCELLED(4),
-    COMPLETED(5)
+    COMPLETED(5),
+    DELETED(6)
 }

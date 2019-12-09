@@ -31,7 +31,10 @@ class TasksAdapter(
         val itemView = holder.itemView
 
         itemView.cbTask.text = item.description
-        itemView.setOnClickListener { markTask(position) }
+        itemView.cbTask.setOnClickListener {
+            itemView.cbTask.isEnabled=false
+            markTask(position)
+        }
     }
 
     override fun getItemCount(): Int = tasksList.size

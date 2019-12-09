@@ -7,16 +7,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_mentorship_tasks.*
+import kotlinx.android.synthetic.main.fragment_mentorship_tasks.view.*
 import kotlinx.android.synthetic.main.task_list_item.*
 import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Relationship
+import org.systers.mentorship.models.Task
+import org.systers.mentorship.remote.requests.Task_add
 import org.systers.mentorship.view.activities.MainActivity
+import org.systers.mentorship.view.adapters.AchievementsAdapter
 import org.systers.mentorship.view.adapters.TasksAdapter
 import org.systers.mentorship.viewmodels.TasksViewModel
+import java.util.*
 
 @SuppressLint("ValidFragment")
 /**
@@ -43,19 +49,49 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
         super.onActivityCreated(savedInstanceState)
 
         taskViewModel = ViewModelProviders.of(this).get(TasksViewModel::class.java)
-        taskViewModel.successful.observe(this, Observer {
+        setObservables()
+
+        fabAddItem.setOnClickListener {
+            showDialog()
+        }
+
+        taskViewModel.getTasks(mentorshipRelation.id)
+    }
+
+    private fun setObservables() {
+        /**
+         * Setting up the taskViewModel observe for the getTasks functionality.
+         * */
+        taskViewModel.successfulGet.observe(this, Observer {
             successful ->
             if (successful != null) {
                 if (successful) {
                     if (taskViewModel.tasksList.isEmpty()) {
                         tvNoTask.visibility = View.VISIBLE
                         rvTasks.visibility = View.GONE
+                       // tvNoAchievements.visibility = View.VISIBLE
+                       // rvAchievements.visibility = View.GONE
                     } else {
+//                        var tasks:MutableList<Task> = mutableListOf()
+//                        var achievements:MutableList<Task> = mutableListOf()
+//                        for (t in taskViewModel.tasksList){
+//                            if (t.isDone){
+//                                achievements.add(t)
+//                            }else{
+//                                tasks.add(t)
+//                            }
+//                        }
                         rvTasks.apply {
                             layoutManager = LinearLayoutManager(context)
                             adapter = TasksAdapter(taskViewModel.tasksList, markTask)
                         }
+//                        rvAchievements.apply {
+//                            layoutManager = LinearLayoutManager(context)
+//                            adapter = AchievementsAdapter(achievements)
+//                        }
                         tvNoTask.visibility = View.GONE
+                       // tvNoAchievements.visibility=View.GONE
+                       // rvAchievements.visibility=View.VISIBLE
                     }
                 } else {
                     view?.let {
@@ -65,12 +101,40 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
             }
         })
 
-        fabAddItem.setOnClickListener {
-            showDialog()
-        }
+        /**
+         * Setting up the taskViewModel observe for the addTask functionality.
+         * */
+        taskViewModel.successfulAdd.observe(this, Observer {
+            successful ->
+            if (successful != null) {
+                if (successful) {
+                    Toast.makeText(context, taskViewModel.message, Toast.LENGTH_LONG).show()
+                } else {
+                    view?.let {
+                        Snackbar.make(it, taskViewModel.message, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
 
-        taskViewModel.getTasks(mentorshipRelation.id)
-
+        /**
+         * Setting up the taskViewModel observe for the completeTask functionality.
+         * */
+        taskViewModel.successfulComplete.observe(this, Observer {
+            successful ->
+            if (successful != null) {
+                if (successful) {
+                    Toast.makeText(context, taskViewModel.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Updated", Toast.LENGTH_LONG).show()
+                   // taskViewModel.getTasks(mentorshipRelation.id)
+                } else {
+                    view?.let {
+                        Snackbar.make(it, taskViewModel.message, Snackbar.LENGTH_LONG).show()
+                        //taskViewModel.getTasks(mentorshipRelation.id)
+                    }
+                }
+            }
+        })
     }
 
     /**
@@ -84,8 +148,14 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
         val editText = dialogLayout.findViewById<EditText>(R.id.etAddTask)
         builder.setView(dialogLayout)
         builder.setPositiveButton(appContext.getString(R.string.save)) { dialogInterface, i ->
-            val newTask: String = editText.text.toString()
-            taskViewModel.addTask(newTask)
+            val description = Task_add(
+                    description = editText.text.toString()
+            )
+            taskViewModel.addTask(mentorshipRelation.id,description)
+            /**
+             * Calling GET method to display the newly added tasks on the screen.
+             * */
+            taskViewModel.getTasks(mentorshipRelation.id)
         }
         builder.setNegativeButton(appContext.getString(R.string.cancel)) { dialogInterface, i ->
             dialogInterface.dismiss()
@@ -93,8 +163,8 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
         builder.show()
     }
 
-    private val markTask: (Int) -> Unit = { taskId ->
-        cbTask.isChecked
-        taskViewModel.updateTask(taskId, cbTask.isChecked)
+    private val markTask: (Int) -> Unit = { taskId:Int ->
+
+            taskViewModel.updateTask(mentorshipRelation.id,taskId)
     }
 }
