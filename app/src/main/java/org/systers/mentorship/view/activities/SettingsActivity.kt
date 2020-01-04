@@ -1,16 +1,29 @@
 package org.systers.mentorship.view.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.core.content.ContextCompat.startActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.systers.mentorship.R
 import org.systers.mentorship.utils.PreferenceManager
 import org.systers.mentorship.view.fragments.ChangePasswordFragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SettingsActivity : BaseActivity() {
 
-    private val preferenceManager: PreferenceManager = PreferenceManager()
+    companion object {
+        fun logout(context: Context) {
+
+
+            }
+    }
+
+    val preferenceManager: PreferenceManager = PreferenceManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +32,11 @@ class SettingsActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.settings)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        var c = Calendar.getInstance().time
+        var sdf = SimpleDateFormat("dd-M-yyyy")
+        var date=sdf.format(c)
+        Toast.makeText(applicationContext,date.toString(),Toast.LENGTH_LONG).show()
 
         tvLogout.setOnClickListener {
             val builder = AlertDialog.Builder(this)
