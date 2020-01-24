@@ -2,6 +2,7 @@ package org.systers.mentorship.view.fragments
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -15,6 +16,7 @@ import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.utils.EXTENDED_DATE_FORMAT
 import org.systers.mentorship.utils.convertUnixTimestampIntoStr
 import org.systers.mentorship.view.activities.MainActivity
+import org.systers.mentorship.view.activities.SharedResourcesActivity
 import org.systers.mentorship.viewmodels.RelationViewModel
 
 @SuppressLint("ValidFragment")
@@ -94,5 +96,8 @@ class RelationFragment(private var mentorshipRelation: Relationship) : BaseFragm
                     }
                 }?.create()?.show()
             }
+//            btnSharedResouces.setOnClickListener {
+//                startActivity(Intent(context, SharedResourcesActivity::class.java))
+//            }
     }
 }

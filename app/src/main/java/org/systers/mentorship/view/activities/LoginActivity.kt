@@ -48,6 +48,11 @@ class LoginActivity : BaseActivity() {
            login()
         }
 
+        btnOtherLoginOptions.setOnClickListener {
+            inner.animate().alpha(0.2f).duration = 500
+            ltOtherLoginOptions.animate().alpha(1f).duration = 1000
+        }
+
         btnSignUp.setOnClickListener {
             intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)

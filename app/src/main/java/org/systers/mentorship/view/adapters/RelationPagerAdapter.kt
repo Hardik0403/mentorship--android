@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Relationship
+import org.systers.mentorship.view.fragments.ChatFragment
 import org.systers.mentorship.view.fragments.RelationFragment
+import org.systers.mentorship.view.fragments.SharedResoucesFragment
 import org.systers.mentorship.view.fragments.TasksFragment
 
 @SuppressLint("ValidFragment")
@@ -24,7 +26,9 @@ class RelationPagerAdapter(fm: FragmentManager, private var mentorshipRelation: 
      */
     enum class TabsIndex(val value: Int) {
         DETAILS(0),
-        TASKS(1)
+        TASKS(1),
+        CHAT(2),
+        SHARED_RESOURCES(3)
     }
 
     val context = MentorshipApplication.getContext()
@@ -38,11 +42,19 @@ class RelationPagerAdapter(fm: FragmentManager, private var mentorshipRelation: 
             TabsIndex.TASKS.value -> {
                 return TasksFragment.newInstance(mentorshipRelation)
             }
+
+            TabsIndex.CHAT.value -> {
+                return ChatFragment.newInstance(mentorshipRelation)
+            }
+
+            TabsIndex.SHARED_RESOURCES.value -> {
+                return SharedResoucesFragment.newInstance(mentorshipRelation)
+            }
         }
         return TasksFragment.newInstance(mentorshipRelation)
     }
 
-    override fun getCount(): Int = 2
+    override fun getCount(): Int = 4
 
     override fun getPageTitle(position: Int): CharSequence? {
         when (position) {
@@ -51,6 +63,12 @@ class RelationPagerAdapter(fm: FragmentManager, private var mentorshipRelation: 
             }
             RequestsPagerAdapter.TabsIndex.PAST.value -> {
                 return context.getString(R.string.tasks)
+            }
+            2 -> {
+                return "Chat"
+            }
+            3 -> {
+                return "Shared Resources"
             }
         }
         return context.getString(R.string.details)
