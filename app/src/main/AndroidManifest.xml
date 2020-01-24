@@ -25,15 +25,19 @@
         </activity>
         <activity
             android:name=".view.activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboard|orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".view.activities.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.activities.MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboard|orientation|screenSize|keyboardHidden" />
+        <activity android:name=".view.activities.MainActivity"
+                  android:configChanges="keyboard|orientation|screenSize|keyboardHidden" />
         <activity android:name=".view.activities.RequestDetailActivity" />
         <activity android:name=".view.activities.MemberProfileActivity" />
         <activity android:name=".view.activities.SendRequestActivity" />
-        <activity android:name=".view.activities.SettingsActivity" />
+        <activity android:name=".view.activities.SettingsActivity"
+                  android:configChanges="keyboard|orientation|screenSize|keyboardHidden" />
     </application>
 
 </manifest>
